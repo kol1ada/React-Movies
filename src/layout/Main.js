@@ -13,8 +13,8 @@ class Main extends Component {
 			.then(data => this.setState({ movies: data.Search }))
 	}
 
-	searchMovies = (str) => {
-		fetch(`http://www.omdbapi.com/?apikey=78584b3c&s=${str}&page`)
+	searchMovies = (str, type = 'all') => {
+		fetch(`http://www.omdbapi.com/?apikey=78584b3c&s=${str}${type !== 'all' ?  `&type=${type}` : ''}`)
 			.then(el => el.json())
 			.then(data => this.setState({ movies: data.Search }))
 	}

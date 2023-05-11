@@ -6,6 +6,7 @@ class Search extends Component {
 		super(props)
 		this.state = {
 			search: '',
+			type: 'all'
 		}
 	}
 
@@ -13,6 +14,12 @@ class Search extends Component {
 		if (e.key === 'Enter') {
 			this.props.searchMovies(this.state.search)
 		}
+	}
+
+	handleFilter = (e) => {
+		this.setState(() => ({type: e.target.dataset.type}), () => {
+			this.props.searchMovies(this.state.search, this.state.type)
+		})
 	}
 
 	render() {
@@ -34,6 +41,20 @@ class Search extends Component {
 						</div>
 					</div>
 				</form>
+				<div>
+					<label>
+						<input className='with-gap' name='type' type='radio' data-type='all' onChange={this.handleFilter} checked={this.state.type === 'all'}/>
+						<span>All</span>
+					</label>
+					<label>
+						<input className='with-gap' name='type' type='radio' data-type='movie' onChange={this.handleFilter} checked={this.state.type === 'movie'}/>
+						<span>Movies only</span>
+					</label>
+					<label>
+						<input className='with-gap' name='type' type='radio' data-type='series' onChange={this.handleFilter} checked={this.state.type === 'series'}/>
+						<span>Serios only</span>
+					</label>
+				</div>
 			</div>
 		)
 	}
